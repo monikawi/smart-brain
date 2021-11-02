@@ -1,25 +1,27 @@
-import React from 'react';
-import Logo from '../Logo/Logo';
- 
-const Navigation = ({onRouteChange, isLoggedIn}) => {
-  if (isLoggedIn) {
-    return (
-      <nav style={{display: 'flex', justifyContent: 'space-between', marginBottom: '100px'}}>
-        <Logo />
-        <p onClick={() => onRouteChange('login')} className='f4 link dim black underline pa3 pointer'>SIGN OUT</p>
-      </nav>
-    )
-  } else {
-    return (
-      <nav style={{display: 'flex', justifyContent: 'space-between', marginBottom: '100px'}}>
-        <Logo />
-        <div style={{display: 'flex'}}>
-          <p onClick={() => onRouteChange('login')} className='f4 link dim black underline pa3 pointer mr3'>SIGN IN</p>
-          <p onClick={() => onRouteChange('register')} className='f4 link dim black underline pa3 pointer'>REGISTER</p>
-        </div>
-      </nav>
-    )
+import React, { useContext } from 'react';
+import { Link } from "react-router-dom";
+import { UserContext } from '../../context/UserContext';
+
+const Navigation = () => {
+  const { setIsLoggedIn, setUser, isLoggedIn } = useContext(UserContext);
+
+  const resetContext = () => {
+    setIsLoggedIn(false);
+    setUser({});
   }
+
+  return (
+    <nav style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '50px'}}>
+    {isLoggedIn ? (
+       <Link to="/login" onClick={resetContext} className='f4 link dim black underline pa3 pointer'>SIGN OUT</Link>
+    ) : (
+      <div style={{display: 'flex'}}>
+        <Link to="/login" className='f4 link dim black underline pa3 pointer mr3'>SIGN IN</Link>
+        <Link to="/register" className='f4 link dim black underline pa3 pointer'>REGISTER</Link>
+      </div>
+    )}
+    </nav>
+  )
 }
  
 export default Navigation;

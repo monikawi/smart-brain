@@ -1,15 +1,17 @@
-import React from 'react';
- 
-const Entries = ({ user }) => {
-  const { name, entries } = user;
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
+
+const Entries = () => {
+  const { user } = useContext(UserContext);
+
 
   return ( 
     <>
-      <div className='white f3'>
-        {`${name}, your current entry count`}
+      <div className='white f4'>
+        {`${user.name}, your current entry count is:`}
       </div>
       <div className='white f1'>
-        {entries}
+        {user.entries}
       </div>
     </>
   );
